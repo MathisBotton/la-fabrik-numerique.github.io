@@ -1,20 +1,53 @@
-:root
-{
-  --grey : #EBEAEA;
-  --dark-grey : #cccccc;
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap');
+
+:root {
+  --grey: #EBEAEA;
+  --dark-grey: #cccccc;
   --black: #000000;
   --white: #ffffff;
   --yellow: #EEFF01;
   --green: #03FF20;
   --purple: #CB00FF;
 
-  --very-small-radius : 3px;
+  --very-small-radius: 3px;
   --small-radius: 5px;
   --medium-radius: 10px;
   --large-radius: 20px;
 
   --transition: 0.3s ease;
+
+  /* Échelle typographique dynamique selon la résolution */
+  --font-scale: 1;
 }
+
+/* iMac 27" et grands écrans (≥ 2560px) */
+@media screen and (min-width: 2560px) {
+  :root { --font-scale: 1.6; }
+}
+
+/* iMac 24" (≥ 1920px) */
+@media screen and (min-width: 1920px) and (max-width: 2559px) {
+  :root { --font-scale: 1.35; }
+}
+
+/* iMac / grands écrans intermédiaires (≥ 1600px) */
+@media screen and (min-width: 1600px) and (max-width: 1919px) {
+  :root { --font-scale: 1.15; }
+}
+
+/* MacBook 14" — référence (≥ 1200px) */
+@media screen and (min-width: 1200px) and (max-width: 1599px) {
+  :root { --font-scale: 1; }
+}
+
+/* Petits écrans */
+@media screen and (max-width: 1199px) {
+  :root { --font-scale: 0.9; }
+}
+
+/* ============================================================
+   FONT CLASSES
+   ============================================================ */
 
 .dm-mono-light {
   font-family: "DM Mono", monospace;
@@ -52,535 +85,608 @@
   font-style: italic;
 }
 
-body{
-    font-family: "DM Mono";
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
+/* ============================================================
+   BASE
+   ============================================================ */
+
+body {
+  font-family: "DM Mono", monospace;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }
 
+/* ============================================================
+   TYPOGRAPHIE — clamp() adapté aux grands écrans
+   ============================================================ */
+
 h1 {
-    margin-top: 10px;
-    margin-bottom: 20px;
-    position: relative;
-    font-family: "DM Mono", monospace;
-    font-weight: 500;
-    font-size: clamp(2rem, 4vw, 4rem);
-    z-index: 10;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  position: relative;
+  font-family: "DM Mono", monospace;
+  font-weight: 500;
+  /* min 2rem → max 6rem selon l'écran */
+  font-size: clamp(2rem, calc(4vw * var(--font-scale)), 6rem);
+  z-index: 10;
 }
 
 h2 {
-    font-family: "DM Mono";
-    font-size: clamp(16px, 1.2vw, 20px);
-    line-height: normal;
-    margin-bottom: 10px;
+  font-family: "DM Mono", monospace;
+  font-size: clamp(16px, calc(1.2vw * var(--font-scale)), 28px);
+  line-height: normal;
+  margin-bottom: 10px;
 }
 
 h3 {
-        font-family: "DM Mono", monospace;
-        font-weight: 500;
-        font-size: clamp(16px, 1.2vw, 20px);
-        /* font-size: clamp(1rem, 2.5vw, 2rem); */
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 15px;
-        border: 1px solid black;
-        width: fit-content;
-        padding: 5px 15px;
-        border-radius: 50px;
-        background-color: var(--white);
-        color: var(--black);
-    }
-
-    h3:hover {
-      background-color: var(--grey);
-    }
-
-p{
-    font-family: "DM Mono";
-    font-size: clamp(12px, 1.1vw, 20px);
-    line-height: normal;
+  font-family: "DM Mono", monospace;
+  font-weight: 500;
+  font-size: clamp(16px, calc(1.2vw * var(--font-scale)), 28px);
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+  gap: 15px;
+  border: 1px solid black;
+  width: -webkit-fit-content;
+  width: fit-content;
+  padding: 5px 15px;
+  border-radius: 50px;
+  background-color: var(--white);
+  color: var(--black);
 }
 
-    ul {
-      padding-left: 10px;
-    }
-
-    li {
-      font-size: clamp(12px, 1.1vw, 20px);
-      list-style-type: disc;
-      margin-bottom: 10px;
-    }
-
-a{
-    font-family: "DM Mono";
-    font-size: clamp(12px, 1.1vw, 20px);
-    line-height: normal;
+h3:hover {
+  background-color: var(--grey);
 }
+
+p {
+  font-family: "DM Mono", monospace;
+  font-size: clamp(12px, calc(1.1vw * var(--font-scale)), 26px);
+  line-height: normal;
+}
+
+ul {
+  padding-left: 10px;
+}
+
+li {
+  font-size: clamp(12px, calc(1.1vw * var(--font-scale)), 26px);
+  list-style-type: disc;
+  margin-bottom: 10px;
+}
+
+a {
+  font-family: "DM Mono", monospace;
+  font-size: clamp(12px, calc(1.1vw * var(--font-scale)), 26px);
+  line-height: normal;
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
 
 header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    background-color: var(--black);
-    height: 5%;
-    /* padding: 0 0 0 30px; */
-    border-bottom: 1px solid var(--black);
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  background-color: var(--black);
+  height: 5%;
+  border-bottom: 1px solid var(--black);
 }
 
 #navigation {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    /* gap: 30px; */
-    font-size: 14px;
-    height: 100%;
-    width: 100%;
-    flex: 1;
-    
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  align-items: center;
+  font-size: 14px;
+  height: 100%;
+  width: 100%;
+  -webkit-flex: 1;
+  flex: 1;
 }
 
 #navigation > a {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    color: var(--black);
-    gap: 10px;
-    width: stretch;
-    /* width: 150px; */
-    height: stretch;
-    text-decoration: none;
-    background-color: var(--white);
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  color: var(--black);
+  gap: 10px;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+  height: 100%;
+  text-decoration: none;
+  background-color: var(--white);
 }
 
 #navigation > a:hover {
-    background-color: var(--grey);
+  background-color: var(--grey);
 }
 
-#navigation > a:nth-child(2)::before{
-       content: '';
-       display: inline-block;
-       width: 10px;
-       height: 10px;
-       border-radius: 20px;
-       background-color: var(--green);
+#navigation > a:nth-child(2)::before {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 20px;
+  background-color: var(--green);
 }
 
-#navigation > a:nth-child(4)::before{
-       content: '';
-       display: inline-block;
-       width: 10px;
-       height: 10px;
-       border-radius: 20px;
-       background-color: var(--purple);
+#navigation > a:nth-child(4)::before {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 20px;
+  background-color: var(--purple);
 }
 
-#navigation > a:nth-child(6)::before{
-       content: '';
-       display: inline-block;
-       width: 10px;
-       height: 10px;
-       border-radius: 20px;
-       background-color: var(--yellow);
+#navigation > a:nth-child(6)::before {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 20px;
+  background-color: var(--yellow);
 }
 
 #navigation > .divider {
-    height: 100%;
-    width: 1px;
-    background-color: var(--black);
+  height: 100%;
+  width: 1px;
+  background-color: var(--black);
 }
 
 .logo {
-    color: white;
-    flex: 2;
-    text-decoration: none;
+  color: white;
+  -webkit-flex: 2;
+  flex: 2;
+  text-decoration: none;
 }
 
 .workspace {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 95%;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  width: 100%;
+  height: 95%;
 }
 
 .sidebar {
-    position: relative;
-    border-right: 1px solid var(--black);
-    background-color: var(--white);
-    width: 25%;
-    overflow: scroll;
+  position: relative;
+  border-right: 1px solid var(--black);
+  background-color: var(--white);
+  width: 25%;
+  overflow: scroll;
+  /* Safari : empêche le rebond indésirable */
+  -webkit-overflow-scrolling: touch;
 }
 
 .sidebar > div {
-    padding: 30px;
+  padding: 30px;
 }
 
 .canvas-area {
-    position: relative;
-    display: flex;
-    /* flex: 1; */
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--grey);
-    width: 75%;
-    padding: 75px;
+  position: relative;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  background-color: var(--grey);
+  width: 75%;
+  padding: 75px;
 }
 
 .divider {
-    height: 1px;
-    background-color: black;
-    padding: 0px!important;
+  height: 1px;
+  background-color: black;
+  padding: 0 !important;
 }
 
 .statusbar {
-    position: absolute;
-    background-color: white;
-    color: black;
-    border-top: 1px solid black;
-    border-left: 1px solid black;
-    bottom: 0;
-    right: 0;
-    padding: 5px;
-    font-size: 10px;
-    border-radius: var(--small-radius) 0 0 0;
+  position: absolute;
+  background-color: white;
+  color: black;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  bottom: 0;
+  right: 0;
+  padding: 5px;
+  font-size: 10px;
+  border-radius: var(--small-radius) 0 0 0;
 }
 
+/* ============================================================
+   INPUTS / SLIDERS
+   ============================================================ */
 
-
-input {
-    -webkit-appearance: none;  /* Override default CSS styles */
-    appearance: none;
-    width: 100%; /* Full-width */
-    height: 1px; /* Specified height */
-    background: var(--black); /* Grey background */
-    outline: none; /* Remove outline */
-    opacity: 1; /* Set transparency (for mouse-over effects on hover) */
-    /* border-radius: 100px; */
-    /* border: 1px solid black; */
-    border-radius: var(--very-small-radius);
-}
-
-input::-webkit-slider-thumb {
-  -webkit-appearance: none; /* Override default look */
+input[type="range"] {
+  -webkit-appearance: none;
   appearance: none;
-  width: 20px; /* Set a specific slider handle width */
-  height: 10px; /* Slider handle height */
-  background: var(--black); /* Green background */
+  width: 100%;
+  height: 1px;
+  background: var(--black);
+  outline: none;
+  opacity: 1;
   border-radius: var(--very-small-radius);
 }
 
-.section-label {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 30px;
-    /* -webkit-text-stroke: 10px greenyellow; */
-    paint-order: stroke fill;
+/* Safari : le track doit aussi être stylé */
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 1px;
+  background: var(--black);
+  border-radius: var(--very-small-radius);
 }
 
-.section-label::before{
-       content: '';
-       display: inline-block;
-       width: 10px;
-       height: 10px;
-       border-radius: 20px;
-       background-color: var(--primary-color);
-    }
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 10px;
+  background: var(--black);
+  border-radius: var(--very-small-radius);
+  /* Safari : centrage vertical du thumb */
+  margin-top: -4px;
+}
 
-.slider-group, .button-group  {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+/* Firefox */
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 10px;
+  background: var(--black);
+  border-radius: var(--very-small-radius);
+  border: none;
+  cursor: pointer;
+}
+
+/* ============================================================
+   COMPOSANTS
+   ============================================================ */
+
+.section-label {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  -webkit-paint-order: stroke fill;
+  paint-order: stroke fill;
+}
+
+.section-label::before {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 20px;
+  background-color: var(--primary-color);
+}
+
+.slider-group,
+.button-group {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .slider-row {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .button-group {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    font-size: 12px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  gap: 15px;
+  font-size: 12px;
 }
 
 .button-group > div {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .merge-counter {
-    margin-top: 20px;
-    background-color: var(--primary-color);
-    width: fit-content;
-    font-size: 12px;
+  margin-top: 20px;
+  background-color: var(--primary-color);
+  width: -webkit-fit-content;
+  width: fit-content;
+  font-size: 12px;
 }
 
-#gridWrapper{
-    position: relative;
-    border: 1px solid black;
-    overflow: hidden;
-    flex-shrink: 0;
-    background-color: var(--white);
-    border-radius: var(--medium-radius);
+/* ============================================================
+   CANVAS / GRILLE
+   ============================================================ */
+
+#gridWrapper {
+  position: relative;
+  border: 1px solid black;
+  overflow: hidden;
+  -webkit-flex-shrink: 0;
+  flex-shrink: 0;
+  background-color: var(--white);
+  border-radius: var(--medium-radius);
 }
 
 #dropZone {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 5;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 .drop-title {
-    text-align: center;
+  text-align: center;
 }
 
-#fileInput, #statusMode {
-    display: none;
+#fileInput,
+#statusMode {
+  display: none;
 }
-
-
 
 #gridCanvas {
-    display: block;
-    cursor: crosshair;
+  display: block;
+  cursor: crosshair;
 }
 
-/* .header-actions {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 5px;
-    position: absolute;
-    top: 15px;
-    right: 15px;
-}
-
-.header-actions > button {
-    position: relative;
-    height: fit-content;
-    width: fit-content;
-    background-color: white;
-    
-}
-
-.header-actions > button::before, .header-actions > button::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-repeat: no-repeat;
-}
-
-#newImageBtn, #exportBtn, #codeBtn {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    align-items: center;
-    justify-content: center;
-}
-
-#newImageBtn > svg, #exportBtn > svg, #codeBtn > svg {
-    width: 30px;
-} */
-
-/* .header-actions > button::before {
-    background-image: linear-gradient(
-      to bottom right,
-      transparent calc(50% - 0.5px),
-      black 50%,
-      transparent calc(50% + 0.5px)
-    );
-  }
-
-.header-actions > button::after {
-    background-image: linear-gradient(
-      to bottom left,
-      transparent calc(50% - 0.5px),
-      black 50%,
-      transparent calc(50% + 0.5px)
-    );
-  } */
+/* ============================================================
+   SLIDER DATA
+   ============================================================ */
 
 .slider-data {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  align-items: center;
+  gap: 10px;
 }
 
-
-
 .slider-data > .slider-val {
-    width: 40px;
-    height: 25px;
-    background-color: white;
-    border: 1px solid black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--small-radius);
-    font-size: 14px;
+  width: 40px;
+  height: 25px;
+  background-color: white;
+  border: 1px solid black;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  border-radius: var(--small-radius);
+  font-size: 14px;
 }
 
 .slider-label {
-    font-size: 14px;
+  font-size: 14px;
 }
 
+/* ============================================================
+   FORMATS
+   ============================================================ */
 
 #btn-formats {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    gap: 15px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  width: 100%;
+  gap: 15px;
 }
 
 #btn-formats > p {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 #btn-formats > div > span:nth-child(1) {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
+/* ============================================================
+   DROP ZONE
+   ============================================================ */
+
 #dropInner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  gap: 5px;
 }
 
 .drop-sub {
-    font-size: 12px;
+  font-size: 12px;
 }
 
+/* ============================================================
+   P5 CONTAINER
+   ============================================================ */
+
 #p5-container {
-    position: relative;
-    height: 100%;
-    width: 100%;
-    /* border: 1px solid; */
+  position: relative;
+  height: 100%;
+  width: 100%;
 }
 
 .p5Canvas {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    min-height: 100%;
-    max-height: 100%;
-    max-width: 100%;
-    width: auto !important;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  min-height: 100%;
+  max-height: 100%;
+  max-width: 100%;
+  width: auto !important;
 }
 
+/* ============================================================
+   FORM ELEMENTS
+   ============================================================ */
+
 select {
-    font-family: "DM Mono", monospace;
-    width: 100%;
-    background-color: var(--white);
-    border: 1px solid black;
-    border-radius: var(--very-small-radius);
-    padding: 5px;
+  font-family: "DM Mono", monospace;
+  width: 100%;
+  background-color: var(--white);
+  border: 1px solid black;
+  border-radius: var(--very-small-radius);
+  padding: 5px;
+  /* Safari : retire le style natif */
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 select:hover {
-    background-color: var(--grey);
+  background-color: var(--grey);
 }
 
 textarea {
-    background-color: var(--white);
-    width: 100%;    
-    max-width: 100%;
-    border: 1px solid black;
-    border-radius: var(--very-small-radius);
+  background-color: var(--white);
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid black;
+  border-radius: var(--very-small-radius);
+  /* Safari : retire le resize automatique indésirable */
+  -webkit-appearance: none;
+  appearance: none;
 }
 
+/* ============================================================
+   IMPORT OVERLAY
+   ============================================================ */
+
 #import-informations {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    height: 100%;
-    z-index: 20;
-    background-color: var(--grey);
+  position: absolute;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+  background-color: var(--grey);
 }
 
 #import-informations p {
-    background-color: var(--white);
+  background-color: var(--white);
 }
 
 #import-informations > p:nth-child(2) {
-    font-size: 12px;
+  font-size: 12px;
 }
 
-/* BUTTONS */
+/* ============================================================
+   BOUTONS
+   ============================================================ */
+
+button {
+  font-family: "DM Mono", monospace;
+  font-size: 14px;
+  padding: 5px 10px;
+  width: -webkit-fill-available;
+  width: fill-available;
+  width: stretch;
+  border-radius: 5px;
+  text-align: center;
+  -webkit-transition: var(--transition);
+  transition: var(--transition);
+  cursor: pointer;
+}
 
 .btn1 {
-    border: none;
-    background-color: var(--black);
-    color: var(--white);
-    border: 1px solid transparent;
+  border: 1px solid transparent;
+  background-color: var(--black);
+  color: var(--white);
 }
 
 .btn1:hover {
-    background-color: var(--primary-color);
-    color: var(--black);
-    border: 1px solid var(--black);
+  background-color: var(--primary-color);
+  color: var(--black);
+  border: 1px solid var(--black);
 }
 
 .btn2 {
-    border: none;
-    background-color: var(--grey);
+  border: none;
+  background-color: var(--grey);
 }
 
 .btn2:hover {
-    background-color: var(--dark-grey);
+  background-color: var(--dark-grey);
 }
 
 .btn3 {
-    border: 1px solid black;
-    background-color: var(--white);
-    color: var(--black);
-    border: 1px solid var(--black);
+  border: 1px solid var(--black);
+  background-color: var(--white);
+  color: var(--black);
 }
 
 .btn3:hover {
-    background-color: var(--grey);
-    color: var(--black);
+  background-color: var(--grey);
+  color: var(--black);
 }
 
-button {
-    font-family: "DM Mono", monospace;;
-    font-size: 14px;
-    padding: 5px 10px;
-    width: stretch;
-    border-radius: 5px;
-    text-align: center;
-    transition: var(--transition);
-    cursor: pointer;
-}
+/* ============================================================
+   MISC
+   ============================================================ */
 
 .inner {
-        padding: 20px;
+  padding: 20px;
 }
 
 .logo {
+  display: -webkit-flex;
   display: flex;
+  -webkit-align-items: center;
   align-items: center;
   height: 100%;
 }
@@ -596,11 +702,15 @@ footer {
   background-color: white;
   position: absolute;
   bottom: 0;
+  display: -webkit-flex;
   display: flex;
+  -webkit-flex-direction: row;
   flex-direction: row;
   width: 100%;
   color: black;
+  -webkit-justify-content: space-between;
   justify-content: space-between;
+  -webkit-align-items: center;
   align-items: center;
   padding-left: 20px;
   padding-right: 20px;
@@ -610,4 +720,43 @@ footer {
 footer > a {
   color: black;
   text-decoration: underline;
+}
+
+/* ============================================================
+   RESPONSIVE — sidebar + canvas-area sur petits écrans
+   ============================================================ */
+
+@media screen and (max-width: 900px) {
+  body {
+    overflow: auto;
+  }
+
+  .workspace {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    height: auto;
+  }
+
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--black);
+  }
+
+  .canvas-area {
+    width: 100%;
+    padding: 30px;
+    height: 70vh;
+  }
+
+  header {
+    height: auto;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }
+
+  #navigation {
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }
 }
